@@ -1,46 +1,44 @@
 # GenieChat iOS Appium Test Automation
 
-Bu proje, GenieChat iOS uygulaması için Appium kullanarak yazılmış otomasyon test framework'üdür. Page Object Model (POM) pattern'ı ile geliştirilmiştir.
+Bu proje, GenieChat iOS uygulamasi icin Appium kullanarak yazilmis otomasyon test framework'udur. Page Object Model (POM) pattern'i ile gelistirilmistir.
 
-## 📋 Özellikler
+## Ozellikler
 
-- ✅ Page Object Model (POM) tasarım deseni
-- ✅ unittest framework kullanımı
-- ✅ iOS cihaz üzerinde test desteği
-- ✅ AI model seçimi otomasyonu
-- ✅ Mesaj gönderme ve cevap doğrulama
-- ✅ Ekran görüntüsü alma
-- ✅ Detaylı raporlama
+- Page Object Model (POM) tasarim deseni
+- unittest framework kullanimi
+- iOS cihaz uzerinde test destegi
+- AI model secimi otomasyonu
+- Mesaj gonderme ve cevap dogrulama
+- Ekran goruntusu alma
+- Detayli raporlama
 
-## 🛠 Gereksinimler
+## Gereksinimler
 
-### Yazılımlar
+### Yazilimlar
 - Python 3.8+
 - Xcode 12.0+
 - Appium 2.x
 - iOS cihaz (fiziksel)
-- macOS (iOS testleri için zorunlu)
+- macOS (iOS testleri icin zorunlu)
 
 ### Python Paketleri
 ```bash
-pip install -r requirements.txt
+pip install appium-python-client
+pip install selenium
 ```
 
-## 📦 Kurulum
+## Kurulum
 
 ### 1. Appium Kurulumu
 
 ```bash
-# Homebrew ile Appium
-brew install appium
-
-# XCUITest driver
-appium driver install xcuitest@7.35.0
+npm install -g appium
+appium driver install xcuitest
 ```
 
-### 2. WebDriverAgent İmzalama
+### 2. WebDriverAgent Imzalama
 
-WebDriverAgent'ı Xcode ile imzalamanız gerekiyor:
+WebDriverAgent'i Xcode ile imzalamaniz gerekiyor:
 
 ```bash
 cd ~/.appium/node_modules/appium-xcuitest-driver/node_modules/appium-webdriveragent
@@ -48,111 +46,83 @@ open WebDriverAgent.xcodeproj
 ```
 
 Xcode'da:
-1. **WebDriverAgentRunner** ve **WebDriverAgentLib** target'larını seçin
-2. **Signing & Capabilities** sekmesinde:
-   - ☑️ Automatically manage signing
-   - Team: Apple ID'nizi seçin
-   - Bundle Identifier'ı değiştirin: `com.yourname.WebDriverAgentRunner`
+1. WebDriverAgentRunner ve WebDriverAgentLib target'larini secin
+2. Signing & Capabilities sekmesinde:
+   - Automatically manage signing
+   - Team: Apple ID'nizi secin
+   - Bundle Identifier'i degistirin: com.yourname.WebDriverAgentRunner
 
-### 3. iOS Cihaz Hazırlığı
+### 3. iOS Cihaz Hazirligi
 
-1. **Ayarlar** > **Gizlilik ve Güvenlik** > **Geliştirici Modu** → Aç
-2. UDID'nizi alın:
+1. Ayarlar > Gizlilik ve Guvenlik > Gelistirici Modu -> Ac
+2. UDID'nizi alin:
 ```bash
 idevice_id -l
 ```
-3. `config/config.py` dosyasında UDID'nizi güncelleyin
+3. utils/config.py dosyasinda UDID'nizi guncelleyin
 
-### 4. Geliştirici Güveni
+### 4. Gelistirici Guveni
 
-İlk test çalıştırmasından sonra:
-- **Ayarlar** > **Genel** > **VPN ve Cihaz Yönetimi**
-- Apple ID'nize güven verin
+Ilk test calistirmasindan sonra:
+- Ayarlar > Genel > VPN ve Cihaz Yonetimi
+- Apple ID'nize guven verin
 
-### 5. Proje Kurulumu
+## Kullanim
 
-```bash
-# Projeyi klonlayın veya indirin
-cd genie_appium_tests
-
-# Sanal ortam oluşturun (opsiyonel ama önerilir)
-python3 -m venv venv
-source venv/bin/activate
-
-# Bağımlılıkları yükleyin
-pip install -r requirements.txt
-```
-
-## 🚀 Kullanım
-
-### Appium Sunucusunu Başlatma
+### Appium Sunucusunu Baslatma
 
 ```bash
-# Terminal 1
 appium
 ```
 
-### Testleri Çalıştırma
+Server varsayilan olarak http://127.0.0.1:4723 adresinde calisir.
+
+### Testleri Calistirma
 
 ```bash
-# Terminal 2 - Tüm testleri çalıştır
-python3 -m unittest discover -s tests -v
-
-# Belirli bir test çalıştır
-python3 -m unittest tests.test_genie_chat.GenieChatiOSTest.test_send_message_with_free_model_and_verify_response -v
-
-# Kısa yol
-cd tests
-python3 test_genie_chat.py
+cd "App Case/tests"
+python test_genie_chat_main_flow.py
 ```
 
-## 📁 Proje Yapısı
+veya unittest ile:
 
-```
-genie_appium_tests/
-│
-├── README.md                          # Bu dosya
-├── requirements.txt                   # Python bağımlılıkları
-│
-├── config/                            # Konfigürasyon
-│   ├── __init__.py
-│   └── config.py                      # Test ayarları (UDID, bundle ID, vb.)
-│
-├── pages/                             # Page Object sınıfları
-│   ├── __init__.py
-│   ├── base_page.py                   # Temel page sınıfı
-│   └── genie_chat_page.py             # GenieChat sayfası
-│
-├── tests/                             # Test dosyaları
-│   ├── __init__.py
-│   └── test_genie_chat.py             # GenieChat test senaryoları
-│
-└── utils/                             # Yardımcı fonksiyonlar
-    ├── __init__.py
-    └── driver_factory.py              # Appium driver factory
+```bash
+python -m unittest test_genie_chat_main_flow.py -v
 ```
 
-## 🧪 Test Senaryoları
+## Proje Yapisi
+
+```
+App Case/
+├── pages/
+│   ├── base_page.py          # Temel page object sinifi
+│   └── chat_page.py           # Chat sayfasi metodlari
+├── tests/
+│   └── test_genie_chat_main_flow.py  # Ana test senaryosu
+└── utils/
+    ├── config.py              # Test konfigurasyonu
+    └── driver_factory.py      # Appium driver yonetimi
+```
+
+## Test Senaryosu
 
 ### test_send_message_with_free_model_and_verify_response
 
-**Amaç:** Ücretsiz AI modeli ile mesaj gönderme ve cevap alma testi
+Amac: Ucretsiz AI modeli ile mesaj gonderme ve cevap alma testi
 
-**Adımlar:**
-1. GenieChat uygulamasını aç
-2. Ücretsiz GPT-5-Nano modelini seç
-3. "Merhaba, nasılsın?" mesajını yaz ve gönder
-4. Mesajın gönderildiğini doğrula
-5. AI'dan cevap geldiğini doğrula (sayfa içeriği artışı)
-6. Ekran görüntüsü al
+Adimlar:
+1. GenieChat uygulamasini ac
+2. Ucretsiz GPT-5-Nano modelini sec
+3. "Merhaba, nasilsin?" mesajini yaz ve gonder
+4. Mesajin gonderildigini dogrula
+5. AI'dan cevap geldigini dogrula (sayfa icerigi artisi)
+6. Ekran goruntusu al
 
-**Beklenen Sonuç:** Mesaj başarıyla gönderilir ve AI'dan cevap alınır
+Beklenen Sonuc: Mesaj basariyla gonderilir ve AI'dan cevap alinir
 
-## 🔧 Yapılandırma
+## Yapilandirma
 
-### config/config.py
-
-Test ayarlarını bu dosyada düzenleyebilirsiniz:
+utils/config.py dosyasinda test ayarlarini duzenleyebilirsiniz:
 
 ```python
 class Config:
@@ -163,130 +133,40 @@ class Config:
     AUTOMATION_NAME = 'XCUITest'
     NO_RESET = True
     APPIUM_SERVER = 'http://127.0.0.1:4723'
+
+    DEFAULT_MODEL = 'GPT-5 Nano'
+    DEFAULT_MESSAGE = 'Merhaba, nasilsin?'
+    AI_RESPONSE_WAIT_TIME = 15
 ```
 
-## 📊 Test Çıktısı
+## Sorun Giderme
 
-Test çalıştırıldığında detaylı log çıktısı alırsınız:
-
-```
-============================================================
-🚀 Test sınıfı başlatılıyor...
-============================================================
-✅ Appium bağlantısı kuruldu
-
-test_send_message_with_free_model_and_verify_response ...
-▶️  Test başlıyor: test_send_message_with_free_model_and_verify_response
-------------------------------------------------------------
-
-============================================================
-PART 1: ÜCRETSIZ MODEL SEÇİMİ
-============================================================
-🤖 Model dropdown açılıyor...
-📊 Şu anki model: DeepSeek
-✅ Model dropdown açıldı
-🔍 'GPT-5-Nano' aranıyor...
-⌨️  'GPT-5-Nano' yazılıyor...
-✅ Arama tamamlandı
-🎯 'GPT-5-Nano' seçiliyor...
-✅ 'GPT-5-Nano' seçildi!
-📊 Yeni seçilen model: GPT-5-Nano
-✅ Model seçimi başarılı: GPT-5-Nano
-
-============================================================
-PART 2: MESAJ GÖNDERME
-============================================================
-📊 Mesaj öncesi sayfa uzunluğu: 4532 karakter
-📝 Mesaj yazılıyor: 'Merhaba, nasılsın?'
-✅ Mesaj yazıldı
-📤 Mesaj gönderiliyor...
-✅ Gönder butonuna basıldı
-✅ Input alanı temizlendi (mesaj gönderildi)
-
-============================================================
-PART 3: AI CEVABI DOĞRULAMA
-============================================================
-⏳ AI'dan cevap bekleniyor (15 saniye)...
-📊 Cevap sonrası sayfa uzunluğu: 7891 karakter
-✅ Sayfa içeriği 3359 karakter arttı (cevap alındı)
-📸 Ekran görüntüsü kaydedildi: genie_final_test.png
-
-============================================================
-✅ TÜM ADIMLAR BAŞARIYLA TAMAMLANDI!
-============================================================
-• Model: GPT-5-Nano seçildi
-• Mesaj: 'Merhaba, nasılsın?' gönderildi
-• Cevap: 3359 karakter artış ile alındı
-============================================================
-
-ok
-----------------------------------------------------------------------
-Ran 1 test in 45.234s
-
-OK
-```
-
-## 🐛 Sorun Giderme
-
-### Appium bağlanamıyor
+### Appium baglanamıyor
 ```bash
-# Appium'un çalıştığından emin olun
 appium
-
-# Driver'ların yüklü olduğunu kontrol edin
 appium driver list
 ```
 
-### WebDriverAgent imzalama hatası
-- Xcode'da Bundle Identifier'ı benzersiz yapın
-- Team seçimini kontrol edin
-- iOS cihazda geliştirici güveni verdiğinizden emin olun
+### WebDriverAgent imzalama hatasi
+- Xcode'da Bundle Identifier'i benzersiz yapin
+- Team secimini kontrol edin
+- iOS cihazda gelistirici guveni verdiginizden emin olun
 
-### Element bulunamıyor
+### Element bulunamiyor
 - Appium Inspector ile elementleri kontrol edin
-- `config.py`'daki bekleme sürelerini artırın
-- Uygulama versiyonunun değişip değişmediğini kontrol edin
+- config.py'daki bekleme surelerini artirin
+- Uygulama versiyonunun degisip degismedigini kontrol edin
 
-### Test başarısız oluyor
-- UDID'nin doğru olduğundan emin olun
-- Bundle ID'nin doğru olduğundan emin olun
-- iOS cihazın Developer Mode açık olmalı
+### Test basarisiz oluyor
+- UDID'nin dogru oldugunu kontrol edin
+- Bundle ID'nin dogru oldugunu kontrol edin
+- iOS cihazin Developer Mode acik olmali
+- GenieChat uygulamasinin cihazda yuklu oldugunu dogrulayin
 
-## 📝 Yeni Test Ekleme
+## Hata Ayiklama
 
-1. `pages/` klasöründe yeni bir page object oluşturun (gerekirse)
-2. `tests/` klasöründe yeni test dosyası ekleyin
-3. unittest.TestCase'den türetin
-4. Test metodunu yazın (method adı `test_` ile başlamalı)
+### Ekran Goruntuleri
 
-Örnek:
-```python
-def test_new_feature(self):
-    """Yeni özellik testi"""
-    self.chat_page.some_new_method()
-    self.assertTrue(result)
-```
-
-## 🤝 Katkıda Bulunma
-
-1. Fork yapın
-2. Feature branch oluşturun (`git checkout -b feature/amazing-feature`)
-3. Değişikliklerinizi commit edin (`git commit -m 'Add amazing feature'`)
-4. Branch'inizi push edin (`git push origin feature/amazing-feature`)
-5. Pull Request açın
-
-## 📄 Lisans
-
-Bu proje eğitim amaçlı oluşturulmuştur.
-
-## 📧 İletişim
-
-Sorularınız için issue açabilirsiniz.
-
-## 🔗 Faydalı Linkler
-
-- [Appium Documentation](http://appium.io/docs/en/latest/)
-- [Appium Python Client](https://github.com/appium/python-client)
-- [Selenium Documentation](https://selenium-python.readthedocs.io/)
-- [unittest Documentation](https://docs.python.org/3/library/unittest.html)
-- [Page Object Model](https://www.selenium.dev/documentation/test_practices/encouraged/page_object_models/)
+Testler basarisiz oldugunda otomatik olarak screenshot alinir:
+- error_<test_name>_<timestamp>.png
+- genie_final_test.png

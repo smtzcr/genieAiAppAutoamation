@@ -63,13 +63,8 @@ class ChatPage(BasePage):
             except:
                 continue
 
-        print(f"'{model_name}' elementi bulunamadi, debug yapiliyor...")
+        print(f"'{model_name}' elementi bulunamadi")
         self.take_screenshot('model_selection_failed.png')
-
-        with open('model_selection_debug.xml', 'w', encoding='utf-8') as f:
-            f.write(self.get_page_source())
-
-        print("Debug dosyalari: model_selection_failed.png, model_selection_debug.xml")
         return False
 
     def select_model(self, model_name=None):
@@ -83,7 +78,6 @@ class ChatPage(BasePage):
         if success:
             selected_model = self.get_current_model()
             print(f"Yeni secilen model: {selected_model}")
-            self.take_screenshot('model_selected.png')
 
         return success
 

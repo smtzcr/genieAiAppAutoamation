@@ -1,5 +1,4 @@
 class Config:
-    """Test konfigürasyon sınıfı"""
 
     APPIUM_SERVER = 'http://127.0.0.1:4723'
     PLATFORM_NAME = 'iOS'
