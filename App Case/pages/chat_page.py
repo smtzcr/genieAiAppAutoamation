@@ -15,6 +15,7 @@ class ChatPage(BasePage):
     MODEL_SEARCH_INPUT = (AppiumBy.ACCESSIBILITY_ID, "main_model_selector_search_input")
     MESSAGE_INPUT = (AppiumBy.ACCESSIBILITY_ID, "main_chat_input")
     SEND_BUTTON = (AppiumBy.ACCESSIBILITY_ID, "main_chat_send_button")
+    AI_MESSAGE_BOX = (AppiumBy.ACCESSIBILITY_ID, "ai_message_box")
 
     def get_current_model(self):
         model_box = self.find_element(*self.MODEL_BOX)
@@ -95,11 +96,15 @@ class ChatPage(BasePage):
         print("Mesaj gonderiliyor...")
         self.click_element(*self.SEND_BUTTON)
         print("Gonder butonuna basildi")
-        time.sleep(2)
+        time.sleep(3)
 
     def is_message_sent(self):
-        current_value = self.get_message_input_value()
-        is_empty = current_value.strip() == ""
+        time.sleep(1)
+        message_input = self.find_element(*self.MESSAGE_INPUT)
+        current_value = message_input.get_attribute("value") or ""
+        placeholder = message_input.get_attribute("placeholderValue") or ""
+
+        is_empty = current_value.strip() == "" or current_value.strip() == placeholder.strip()
 
         if is_empty:
             print("Input alani temizlendi (mesaj gonderildi)")
@@ -114,6 +119,16 @@ class ChatPage(BasePage):
 
         print(f"AI'dan cevap bekleniyor ({wait_time} saniye)...")
         time.sleep(wait_time)
+
+    def is_ai_response_received(self):
+        try:
+            ai_message = self.find_element(*self.AI_MESSAGE_BOX)
+            if ai_message:
+                print("AI cevap kutusu bulundu")
+                return True
+        except:
+            print("AI cevap kutusu bulunamadi")
+            return False
 
     def send_message(self, message):
         self.type_message(message)

@@ -115,10 +115,16 @@ Adimlar:
 2. Ucretsiz GPT-5-Nano modelini sec
 3. "Merhaba, nasilsin?" mesajini yaz ve gonder
 4. Mesajin gonderildigini dogrula
-5. AI'dan cevap geldigini dogrula (sayfa icerigi artisi)
+5. AI'dan cevap geldigini dogrula (AI mesaj kutusunun varligini kontrol et)
 6. Ekran goruntusu al
 
 Beklenen Sonuc: Mesaj basariyla gonderilir ve AI'dan cevap alinir
+
+### Ornek Test Kaydi
+
+Test senaryosunun calisirken kaydedilmis videosunu izlemek icin:
+
+[Test Kaydi Videosu](https://drive.google.com/file/d/1XM8hYBDVdtMaJ4bUFgajt8MAdWyOZmJE/view?usp=sharing)
 
 ## Yapilandirma
 
